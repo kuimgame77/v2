@@ -5,8 +5,8 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["np", "now-playing"],
-    description: "Send information about current music player",
+    aliases: ["np", "wlrma", "지금"],
+    description: "지금 틀고 있는 노래를 알려드립니다",
     name: "nowplaying",
     usage: "{prefix}nowplaying"
 })
@@ -15,7 +15,7 @@ export class NowPlayingCommand extends BaseCommand {
     public execute(message: IMessage): any {
         const song = message.guild?.queue?.songs.first();
         return message.channel.send(
-            createEmbed("info", `${message.guild?.queue?.playing ? "▶ **|** Now Playing:" : "⏸ **|** Now Playing:"} ` +
+            createEmbed("info", `${message.guild?.queue?.playing ? "▶ **|** 재생:" : "⏸ **|** 재생:"} ` +
                 `**[${song?.title as string}](${song?.url as string})**`)
                 .setThumbnail(song?.thumbnail as string)
         );
