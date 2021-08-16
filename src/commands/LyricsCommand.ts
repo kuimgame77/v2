@@ -5,8 +5,8 @@ import { IMessage } from "../../typings";
 import fetch from "node-fetch";
 
 @DefineCommand({
-    aliases: ["ly"],
-    description: "Get lyrics from the current music",
+    aliases: ["ly", "rktk", "가사"],
+    description: "가사를 불러 옵니다",
     name: "lyrics",
     usage: "{prefix}lyrics"
 })
@@ -55,7 +55,7 @@ export class LyricsCommand extends BaseCommand {
                 const embed = createEmbed("info")
                     .setAuthor(song.toUpperCase()).setThumbnail(albumArt)
                     .setDescription(lyricsArr[index].toString())
-                    .setFooter(`Lyrics page 1 of ${cantEmbeds}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
+                    .setFooter(`페이지 1 of ${cantEmbeds}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
                 lyrics = lyrics.replace(lyrics.substring(0, 2047), "");
                 for (let i = 2; i <= cantEmbeds; i++) {
                     lyricsArr.push([lyrics.substring(0, 2047)]);
@@ -75,14 +75,14 @@ export class LyricsCommand extends BaseCommand {
                                     reaction.users.remove(user).catch(e => this.client.logger.error("LYRICS_CMD_ERR:", e));
                                     if (index === 0) return undefined;
                                     index--;
-                                    embed.setDescription(lyricsArr[index].toString()).setFooter(`Lyrics page ${index + 1} of ${lyricsArr.length}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
+                                    embed.setDescription(lyricsArr[index].toString()).setFooter(`페이지 ${index + 1} of ${lyricsArr.length}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
                                     msg.edit(embed).catch(e => this.client.logger.error("LYRICS_CMD_ERR:", e));
                                     break;
                                 case "▶️":
                                     reaction.users.remove(user).catch(e => this.client.logger.error("LYRICS_CMD_ERR:", e));
                                     if (index + 1 === lyricsArr.length) return undefined;
                                     index++;
-                                    embed.setDescription(lyricsArr[index]).setFooter(`Lyrics page ${index + 1} of ${lyricsArr.length}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
+                                    embed.setDescription(lyricsArr[index]).setFooter(`페이지 ${index + 1} of ${lyricsArr.length}`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png");
                                     msg.edit(embed).catch(e => this.client.logger.error("LYRICS_CMD_ERR:", e));
                                     break;
                                 default:
