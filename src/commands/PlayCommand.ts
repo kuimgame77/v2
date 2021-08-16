@@ -1,6 +1,5 @@
 /* eslint-disable block-scoped-var, @typescript-eslint/restrict-template-expressions */
 import { isUserInTheVoiceChannel, isSameVoiceChannel, isValidVoiceChannel } from "../utils/decorators/MusicHelper";
-import { resolveYTPlaylistID, resolveYTVideoID } from "../utils/YouTube/utils/YouTubeAPI/resolveYTURL";
 import { IMessage, ISong, IGuild, ITextChannel } from "../../typings";
 import { DefineCommand } from "../utils/decorators/DefineCommand";
 import { Video } from "../utils/YouTube/structures/Video";
@@ -12,10 +11,10 @@ import { decodeHTML } from "entities";
 let disconnectTimer: any;
 
 @DefineCommand({
-    aliases: ["p", "add", "play-music"],
-    description: "Play some music",
+    aliases: ["p", "wotod", "ㅔ", "재생"],
+    description: "노래 재생",
     name: "play",
-    usage: "{prefix}play <youtube video or playlist link | youtube video name>"
+    usage: "{prefix}play <제목 또는 링크>"
 })
 export class PlayCommand extends BaseCommand {
     private readonly _playlistAlreadyQueued: ISong[] = [];
@@ -41,8 +40,7 @@ export class PlayCommand extends BaseCommand {
 
         if (/^https?:\/\/((www|music)\.youtube\.com|youtube.com)\/playlist(.*)$/.exec(url)) {
             try {
-                const id = resolveYTPlaylistID(url);
-                if (!id) return message.channel.send(createEmbed("error", "Invalid YouTube Playlist URL"));
+                const id = new URL(url).searchParams.get("list")!;
                 const playlist = await this.client.youtube.getPlaylist(id);
                 const videos = await playlist.getVideos();
                 let skippedVideos = 0;
@@ -99,22 +97,21 @@ export class PlayCommand extends BaseCommand {
             }
         }
         try {
-            const id = resolveYTVideoID(url);
-            if (!id) return message.channel.send(createEmbed("error", "Invalid YouTube Video URL"));
-            // eslint-disable-next-line no-var
+            const id = new URL(url).searchParams.get("v")!;
+            // eslint-disable-next-line no-var, block-scoped-var
             var video = await this.client.youtube.getVideo(id);
         } catch (e) {
             try {
                 const videos = await this.client.youtube.searchVideos(searchString, this.client.config.searchMaxResults);
-                if (videos.length === 0) return message.channel.send(createEmbed("error", "I could not obtain any search results, please try again"));
+                if (videos.length === 0) return message.channel.send(createEmbed("error", "검색 결과를 얻을 수 없습니다., 다시 시도해 주세요."));
                 if (this.client.config.disableSongSelection) { video = await this.client.youtube.getVideo(videos[0].id); } else {
                     let index = 0;
                     const msg = await message.channel.send(new MessageEmbed()
                         .setColor(this.client.config.embedColor)
-                        .setAuthor("Music Selection", message.client.user?.displayAvatarURL() as string)
+                        .setAuthor("노래 선택", message.client.user?.displayAvatarURL() as string)
                         .setDescription(`\`\`\`${videos.map(video => `${++index} - ${this.cleanTitle(video.title)}`).join("\n")}\`\`\`` +
-                        "\nPlease select one of the results ranging from **\`1-10\`**")
-                        .setFooter("• Type cancel or c to cancel the music selection"));
+                        "\n숫자 선택 **\`1-10\`**")
+                        .setFooter("• 취소하려면 c "));
                     try {
                     // eslint-disable-next-line no-var
                         var response = await message.channel.awaitMessages((msg2: IMessage) => {
@@ -134,14 +131,14 @@ export class PlayCommand extends BaseCommand {
                         return message.channel.send(createEmbed("error", "None or invalid value entered, the music selection has canceled"));
                     }
                     if (response.first()?.content === "c" || response.first()?.content === "cancel") {
-                        return message.channel.send(createEmbed("warn", "The music selection has canceled"));
+                        return message.channel.send(createEmbed("warn", "노래 선택 취소"));
                     }
                     const videoIndex = parseInt(response.first()?.content as string);
                     video = await this.client.youtube.getVideo(videos[videoIndex - 1].id);
                 }
             } catch (err) {
                 this.client.logger.error("YT_SEARCH_ERR:", err);
-                return message.channel.send(createEmbed("error", `I could not obtain any search results\nError: **\`${err.message}\`**`));
+                return message.channel.send(createEmbed("error", `검색 결과를 얻을 수 없습니다.\nError: **\`${err.message}\`**`));
             }
         }
         return this.handleVideo(video, message, voiceChannel);
@@ -167,14 +164,14 @@ export class PlayCommand extends BaseCommand {
             }
             message.guild.queue.songs.addSong(song);
             if (!playlist) {
-                message.channel.send(createEmbed("info", `✅ **|** **[${song.title}](${song.url})** has been added to the queue`).setThumbnail(song.thumbnail))
+                message.channel.send(createEmbed("info", `✅ **|** **[${song.title}](${song.url})** 대기열에 추가되었습니다`).setThumbnail(song.thumbnail))
                     .catch(e => this.client.logger.error("PLAY_CMD_ERR:", e));
             }
         } else {
             message.guild!.queue = new ServerQueue(message.channel as ITextChannel, voiceChannel);
             message.guild?.queue.songs.addSong(song);
             if (!playlist) {
-                message.channel.send(createEmbed("info", `✅ **|** **[${song.title}](${song.url})** has been added to the queue`).setThumbnail(song.thumbnail))
+                message.channel.send(createEmbed("info", `✅ **|** **[${song.title}](${song.url})** 대기열에 추가되었습니다`).setThumbnail(song.thumbnail))
                     .catch(e => this.client.logger.error("PLAY_CMD_ERR:", e));
             }
             try {
@@ -206,12 +203,12 @@ export class PlayCommand extends BaseCommand {
             if (serverQueue.lastMusicMessageID !== null) serverQueue.textChannel?.messages.fetch(serverQueue.lastMusicMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("PLAY_ERR:", e));
             if (serverQueue.lastVoiceStateUpdateMessageID !== null) serverQueue.textChannel?.messages.fetch(serverQueue.lastVoiceStateUpdateMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("PLAY_ERR:", e));
             serverQueue.textChannel?.send(
-                createEmbed("info", `⏹ **|** The music has ended, use **\`${guild.client.config.prefix}play\`** to play some music`)
+                createEmbed("info", `⏹ **|** 음악이 종료되었습니다,  **\`${guild.client.config.prefix}play\`** 을 하여 다시 재생할 수 있습니다`)
             ).catch(e => this.client.logger.error("PLAY_ERR:", e));
             disconnectTimer = setTimeout(() => {
                 serverQueue.connection?.disconnect();
                 serverQueue.textChannel?.send(
-                    createEmbed("info", `👋 **|** Left from the voice channel because I've been inactive for too long.`)
+                    createEmbed("info", `👋 **|** 너무 오랫동안 활동하지 않았기 때문에 음성 채널에서 떠났습니다.`)
                 ).then(m => m.delete({ timeout: 5000 })).catch(e => e);
             }, timeout);
             return guild.queue = null;
@@ -234,7 +231,7 @@ export class PlayCommand extends BaseCommand {
                 serverQueue.playing = true;
                 this.client.logger.info(`${this.client.shard ? `[Shard #${this.client.shard.ids}]` : ""} Music: "${song.title}" on ${guild.name} has started`);
                 if (serverQueue.lastMusicMessageID !== null) serverQueue.textChannel?.messages.fetch(serverQueue.lastMusicMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("PLAY_ERR:", e));
-                serverQueue.textChannel?.send(createEmbed("info", `▶ **|** Started playing: **[${song.title}](${song.url})**`).setThumbnail(song.thumbnail))
+                serverQueue.textChannel?.send(createEmbed("info", `▶ **|** 재생 시작: **[${song.title}](${song.url})**`).setThumbnail(song.thumbnail))
                     .then(m => serverQueue.lastMusicMessageID = m.id)
                     .catch(e => this.client.logger.error("PLAY_ERR:", e));
             })
@@ -243,7 +240,7 @@ export class PlayCommand extends BaseCommand {
                 // eslint-disable-next-line max-statements-per-line
                 if (serverQueue.loopMode === 0) { serverQueue.songs.deleteFirst(); } else if (serverQueue.loopMode === 2) { serverQueue.songs.deleteFirst(); serverQueue.songs.addSong(song); }
                 if (serverQueue.lastMusicMessageID !== null) serverQueue.textChannel?.messages.fetch(serverQueue.lastMusicMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("PLAY_ERR:", e));
-                serverQueue.textChannel?.send(createEmbed("info", `⏹ **|** Stopped playing **[${song.title}](${song.url})**`).setThumbnail(song.thumbnail))
+                serverQueue.textChannel?.send(createEmbed("info", `⏹ **|** 재생 중지 **[${song.title}](${song.url})**`).setThumbnail(song.thumbnail))
                     .then(m => serverQueue.lastMusicMessageID = m.id)
                     .catch(e => this.client.logger.error("PLAY_ERR:", e))
                     .finally(() => {
