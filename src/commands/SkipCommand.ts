@@ -5,8 +5,8 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["s"],
-    description: "Skip the current music",
+    aliases: ["s", "tmzlq", "ㄴ", "스킵"],
+    description: "노래를 스킵합니다",
     name: "skip",
     usage: "{prefix}skip"
 })
@@ -22,7 +22,7 @@ export class SkipCommand extends BaseCommand {
         const song = message.guild?.queue?.songs.first();
 
         message.channel.send(
-            createEmbed("info", `⏭ **|** Skipped **[${song!.title}](${song!.url}})**`)
+            createEmbed("info", `⏭ **|** 스킵됨 **[${song!.title}](${song!.url}})**`)
                 .setThumbnail(song?.thumbnail as string)
         ).catch(e => this.client.logger.error("SKIP_CMD_ERR:", e));
     }
