@@ -5,10 +5,10 @@ import { IMessage } from "../../typings";
 import { MessageEmbed } from "discord.js";
 
 @DefineCommand({
-    aliases: ["h", "command", "commands", "cmd", "cmds"],
-    description: "Show the command list",
+    aliases: ["h", "ehdna", "도움"],
+    description: "명령어 목록을 보여줍니다",
     name: "help",
-    usage: "{prefix}help [command]"
+    usage: "{prefix}help [명령어]"
 })
 export class HelpCommand extends BaseCommand {
     public execute(message: IMessage, args: string[]): void {
@@ -18,18 +18,18 @@ export class HelpCommand extends BaseCommand {
             message.channel.send(
                 new MessageEmbed()
                     .setColor(this.client.config.embedColor)
-                    .setAuthor(`Information for the ${command.meta.name} command`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/question_mark.png")
-                    .addFields({ name: "**Name**", value: command.meta.name, inline: true },
-                        { name: "**Description**", value: command.meta.description, inline: true },
-                        { name: "**Aliases**", value: `${Number(command.meta.aliases?.length) > 0 ? command.meta.aliases?.map(c => `${c}`).join(", ") as string : "None"}`, inline: true },
-                        { name: "**Usage**", value: `**\`${command.meta.usage?.replace(/{prefix}/g, message.client.config.prefix) as string}\`**`, inline: true })
+                    .setAuthor(`${command.meta.name}에 대해`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/question_mark.png")
+                    .addFields({ name: "**이름**", value: command.meta.name, inline: true },
+                        { name: "**정보**", value: command.meta.description, inline: true },
+                        { name: "**같은 명령어**", value: `${Number(command.meta.aliases?.length) > 0 ? command.meta.aliases?.map(c => `${c}`).join(", ") as string : "None"}`, inline: true },
+                        { name: "**사용법**", value: `**\`${command.meta.usage?.replace(/{prefix}/g, message.client.config.prefix) as string}\`**`, inline: true })
             ).catch(e => this.client.logger.error("HELP_CMD_ERR:", e));
         } else {
             message.channel.send(
                 createEmbed("info", message.client.commands.filter(cmd => !cmd.meta.disable && cmd.meta.name !== "eval").map(c => `\`${c.meta.name}\``).join(" "))
-                    .setAuthor("Command List")
+                    .setAuthor("명령어 목록")
                     .setThumbnail(message.client.user?.displayAvatarURL() as string)
-                    .setFooter(`Use ${message.client.config.prefix}help <command> to get more information on a specific command!`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png")
+                    .setFooter(`${message.client.config.prefix}help <명령어 이름> 사용하여 더 자세한 내용 확인!`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/info.png")
             ).catch(e => this.client.logger.error("HELP_CMD_ERR:", e));
         }
     }
