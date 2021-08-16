@@ -6,8 +6,8 @@ import { IMessage } from "../../typings";
 import { TextChannel } from "discord.js";
 
 @DefineCommand({
-    aliases: ["q"],
-    description: "Show the current queue",
+    aliases: ["q", "ahrfhr", "목록"],
+    description: "노래 목록을 보여줍니다",
     name: "queue",
     usage: "{prefix}queue"
 })
@@ -15,7 +15,7 @@ export class QueueCommand extends BaseCommand {
     @isMusicPlaying()
     public execute(message: IMessage): any {
         const embed = createEmbed("info")
-            .setTitle("Music Queue")
+            .setTitle("목록")
             .setThumbnail(message.client.user?.avatarURL() as string);
 
         let num = 1;
