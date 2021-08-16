@@ -6,7 +6,8 @@ import { IMessage } from "../../typings";
 import { satisfies } from "semver";
 
 @DefineCommand({
-    description: "Resume the music player",
+    aliases: ["다시재생"],
+    description: "다시 시작",
     name: "resume",
     usage: "{prefix}resume"
 })
@@ -25,7 +26,7 @@ export class ResumeCommand extends BaseCommand {
                 message.guild?.queue?.connection?.dispatcher.pause();
                 message.guild?.queue?.connection?.dispatcher.resume();
             }
-            message.channel.send(createEmbed("info", "▶ **|** The music player has been resumed")).catch(e => this.client.logger.error("RESUME_CMD_ERR:", e));
+            message.channel.send(createEmbed("info", "▶ **|** 다시 시작됨")).catch(e => this.client.logger.error("RESUME_CMD_ERR:", e));
         }
     }
 }
