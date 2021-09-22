@@ -6,7 +6,7 @@ import { IMessage } from "../../typings";
 import { satisfies } from "semver";
 
 @DefineCommand({
-    aliases: ["다시시작"],
+    aliases: ["ektltlwkr", "다시시작"],
     description: "일싱정지했던 노래를 다시 시작합니다",
     name: "resume",
     usage: "{prefix}resume"
