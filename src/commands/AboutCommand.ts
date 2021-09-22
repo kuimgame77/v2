@@ -9,7 +9,7 @@ import path from "path";
 
 @DefineCommand({
     aliases: ["botinfo", "info", "stats"],
-    description: "Send the information about the bot",
+    description: "봇에 대한 정보를 알려드립니다",
     name: "about",
     usage: "{prefix}about"
 })
