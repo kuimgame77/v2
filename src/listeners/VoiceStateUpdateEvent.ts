@@ -31,7 +31,7 @@ export class VoiceStateUpdateEvent extends BaseListener {
                 if (queue.lastMusicMessageID !== null) queue.textChannel?.messages.fetch(queue.lastMusicMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 if (queue.lastVoiceStateUpdateMessageID !== null) queue.textChannel?.messages.fetch(queue.lastVoiceStateUpdateMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 this.client.logger.info(`${this.client.shard ? `[Shard #${this.client.shard.ids[0]}]` : ""} Disconnected from the voice channel at ${newState.guild.name}, the queue has been deleted.`);
-                queue.textChannel?.send(createEmbed("error", "I was disconnected from the voice channel, the queue has been deleted."))
+                queue.textChannel?.send(createEmbed("error", "음성 채널 연결이 끊어져 대기열이 삭제되었습니다."))
                     .catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 return newState.guild.queue = null;
             } catch (e) {
@@ -72,14 +72,14 @@ export class VoiceStateUpdateEvent extends BaseListener {
                 if (queue.lastMusicMessageID !== null) queue.textChannel?.messages.fetch(queue.lastMusicMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 if (queue.lastVoiceStateUpdateMessageID !== null) queue.textChannel?.messages.fetch(queue.lastVoiceStateUpdateMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 queue.textChannel?.send(
-                    createEmbed("error", `⏹ **|** **\`${duration}\`** have passed and there's no one who joined the voice channel, the queue has deleted.`)
+                    createEmbed("error", `⏹ **|** **\`${duration}\`** 음성 채널에 들어온 사람이 없어서 대기열이  삭제되었습니다.`)
                         .setTitle("Queue Deleted")
                 ).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
             }, timeout);
             queue.textChannel?.send(
-                createEmbed("warn", "⏸ **|** Everyone has left from the voice channel. To save resources, the queue has paused. " +
-                    `If there's no one who joins the voice channel in the next **\`${duration}\`**, the queue will be deleted.`)
-                    .setTitle("Music Player Paused")
+                createEmbed("warn", "⏸ **|** 모든 사람들이 음성 채널에서 떠났습니다. 리소스를 절약하기 위해 대기열이 일시 중지되었습니다. " +
+                    `만약 아무도 안 들어오면 **\`${duration}\`**, 안에 노래 목록이 전부 취소됩니다`)
+                    .setTitle("음악 플레이어가 일시중지됨")
             ).then(m => queue.lastVoiceStateUpdateMessageID = m.id).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
         } catch (e) { this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e); }
     }
@@ -93,7 +93,7 @@ export class VoiceStateUpdateEvent extends BaseListener {
                 const song = queue.songs.first();
                 if (queue.lastVoiceStateUpdateMessageID !== null) queue.textChannel?.messages.fetch(queue.lastVoiceStateUpdateMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 queue.textChannel?.send(
-                    createEmbed("info", `▶ **|** Someone has joined the voice channel.\nNow Playing: **[${song!.title}](${song!.url})**`)
+                    createEmbed("info", `▶ **|** 누군가가 음성 채널에 들어왔습니다.\n지금 재생 중: **[${song!.title}](${song!.url})**`)
                         .setThumbnail(song!.thumbnail)
                         .setTitle("Music Player Resumed")
                 ).then(m => queue.lastVoiceStateUpdateMessageID = m.id).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
