@@ -73,7 +73,7 @@ export class VoiceStateUpdateEvent extends BaseListener {
                 if (queue.lastVoiceStateUpdateMessageID !== null) queue.textChannel?.messages.fetch(queue.lastVoiceStateUpdateMessageID, false).then(m => m.delete()).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
                 queue.textChannel?.send(
                     createEmbed("error", `⏹ **|** **\`${duration}\`** 음성 채널에 들어온 사람이 없어서 대기열이  삭제되었습니다.`)
-                        .setTitle("Queue Deleted")
+                        .setTitle("목록 삭제됨")
                 ).catch(e => this.client.logger.error("VOICE_STATE_UPDATE_EVENT_ERR:", e));
             }, timeout);
             queue.textChannel?.send(
