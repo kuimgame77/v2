@@ -128,7 +128,7 @@ export class PlayCommand extends BaseCommand {
                         response.first()?.delete({ timeout: 3000 }).catch(e => e);
                     } catch (error) {
                         msg.delete().catch(e => this.client.logger.error("PLAY_CMD_ERR:", e));
-                        return message.channel.send(createEmbed("error", "None or invalid value entered, the music selection has canceled"));
+                        return message.channel.send(createEmbed("error", "선택한 숫자가 잘 못 되었거나 시간이 지나 사라졌습니다"));
                     }
                     if (response.first()?.content === "c" || response.first()?.content === "cancel") {
                         return message.channel.send(createEmbed("warn", "노래 선택 취소"));
@@ -156,7 +156,7 @@ export class PlayCommand extends BaseCommand {
             if (!this.client.config.allowDuplicate && message.guild.queue.songs.find(s => s.id === song.id)) {
                 if (playlist) return this._playlistAlreadyQueued.push(song);
                 return message.channel.send(
-                    createEmbed("warn", `🎶 **|** **[${song.title}](${song.url})** is already queued, ` +
+                    createEmbed("warn", `🎶 **|** **[${song.title}](${song.url})** 이미 대기열에 있습니다, ` +
                 `please use **\`${this.client.config.prefix}repeat\`** command instead`)
                         .setTitle("Already Queued")
                         .setThumbnail(song.thumbnail)
