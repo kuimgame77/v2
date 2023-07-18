@@ -6,9 +6,9 @@ import fetch from "node-fetch";
 
 @DefineCommand({
     aliases: ["ly", "rktk", "가사"],
-    description: "가사를 불러 옵니다",
-    name: "lyrics",
-    usage: "{prefix}lyrics"
+    description: "가사를 불러옵니다.",
+    name: "가사",
+    usage: "{prefix}가사"
 })
 export class LyricsCommand extends BaseCommand {
     public async execute(message: IMessage, args: string[]): Promise<void> {
