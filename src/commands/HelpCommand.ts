@@ -5,7 +5,7 @@ import { IMessage } from "../../typings";
 import { MessageEmbed } from "discord.js";
 
 @DefineCommand({
-    aliases: ["ehdna", "도움"],
+    aliases: ["ehdna"],
     description: "명령어 목록을 보여줍니다",
     name: "도움",
     usage: "{prefix}도움 [명령어]"
