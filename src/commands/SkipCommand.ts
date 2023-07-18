@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["s", "tmzlq", "ㄴ", "스킵"],
-    description: "노래를 스킵합니다",
-    name: "skip",
-    usage: "{prefix}skip"
+    aliases: ["s", "tmzlq", "ㄴ", "skip"],
+    description: "노래를 스킵합니다.",
+    name: "스킵",
+    usage: "{prefix}스킵"
 })
 export class SkipCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
