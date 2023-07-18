@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["rm", "delete", "wprj", "제거"],
+    aliases: ["wprj"],
     description: "목록에 있는 노래를 제거 합니다",
-    name: "remove",
-    usage: "{prefix}remove <노래 목록에 있는 숫자>"
+    name: "제거",
+    usage: "{prefix}제거 <노래 목록에 있는 숫자>"
 })
 export class RemoveCommand extends BaseCommand {
     @isMusicPlaying()
