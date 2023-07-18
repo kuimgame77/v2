@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["dlftlwndwl", "일시중지"],
-    description: "노래를 일시중지합니다",
-    name: "pause",
-    usage: "{prefix}pause"
+    aliases: ["dlftlwndwl", "일시정지"],
+    description: "노래를 일시정지합니다",
+    name: "일시정지",
+    usage: "{prefix}일시정지"
 })
 export class PauseCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
