@@ -6,10 +6,10 @@ import { IMessage } from "../../typings";
 import { satisfies } from "semver";
 
 @DefineCommand({
-    aliases: ["ektltlwkr", "다시시작"],
-    description: "일싱정지했던 노래를 다시 시작합니다",
-    name: "resume",
-    usage: "{prefix}resume"
+    aliases: ["ektltlwkr"],
+    description: "일시정지했던 노래를 다시 시작합니다.",
+    name: "다시시작",
+    usage: "{prefix}다시시작"
 })
 export class ResumeCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
