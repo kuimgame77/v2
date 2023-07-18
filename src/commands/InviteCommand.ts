@@ -5,7 +5,7 @@ import { disableInviteCmd } from "../config";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["cheo", "초대"],
+    aliases: ["cheo"],
     description: "초대 링크를 보냅니다.",
     disable: disableInviteCmd,
     name: "초대",
