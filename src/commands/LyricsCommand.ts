@@ -5,7 +5,7 @@ import { IMessage } from "../../typings";
 import fetch from "node-fetch";
 
 @DefineCommand({
-    aliases: ["ly", "rktk", "가사"],
+    aliases: ["rktk"],
     description: "가사를 불러옵니다.",
     name: "가사",
     usage: "{prefix}가사"
