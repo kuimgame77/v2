@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["v", "음량", "볼륨"],
+    aliases: ["v", "볼륨"],
     description: "음량을 보여주거나 설정합니다",
-    name: "volume",
-    usage: "{prefix}volume [new volume]"
+    name: "음량",
+    usage: "{prefix}음량 [new volume]"
 })
 export class VolumeCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
