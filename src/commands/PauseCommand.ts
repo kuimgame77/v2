@@ -5,7 +5,7 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["dlftlwndwl", "일시정지"],
+    aliases: ["dlftlwndwl"],
     description: "노래를 일시정지합니다",
     name: "일시정지",
     usage: "{prefix}일시정지"
