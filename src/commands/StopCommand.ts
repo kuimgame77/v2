@@ -6,7 +6,7 @@ import { IMessage } from "../../typings";
 
 @DefineCommand({
     aliases: ["leave", "나가", "stop"],
-    description: "노래를 정지 시킵니다",
+    description: "노래를 정지 시킵니다.",
     name: "정지",
     usage: "{prefix}정지"
 })
