@@ -6,10 +6,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["loop", "qksqhr", "반복"],
-    description: "노래 반복",
-    name: "repeat",
-    usage: "{prefix}repeat [0 | 1 | 2]"
+    aliases: ["r"],
+    description: "노래 반복 설정합니다.",
+    name: "반복",
+    usage: "{prefix}반복 [0 | 1 | 2]"
 })
 export class RepeatCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
