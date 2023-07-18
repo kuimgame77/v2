@@ -5,7 +5,7 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["wlrma", "지금"],
+    aliases: ["wlrma"],
     description: "지금 틀고 있는 노래를 알려드립니다",
     name: "지금",
     usage: "{prefix}지금"
