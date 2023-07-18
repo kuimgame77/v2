@@ -5,7 +5,7 @@ import { MessageEmbed } from "discord.js";
 
 @DefineCommand({
     aliases: ["ping"],
-    description: "현재 봇에 핑을 확인합니다",
+    description: "현재 봇에 핑을 확인합니다.",
     name: "핑",
     usage: "{prefix}핑"
 })
