@@ -12,7 +12,7 @@ let disconnectTimer: any;
 
 @DefineCommand({
     aliases: ["p", "wotod", "ㅔ", "play"],
-    description: "노래 재생",
+    description: "노래 재생합니다.",
     name: "재생",
     usage: "{prefix}재생 <제목 또는 링크>"
 })
