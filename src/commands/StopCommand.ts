@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["leave", "나가", "정지"],
+    aliases: ["leave", "나가", "stop"],
     description: "노래를 정지 시킵니다",
-    name: "stop",
-    usage: "{prefix}stop"
+    name: "정지",
+    usage: "{prefix}정지"
 })
 export class StopCommand extends BaseCommand {
     @isUserInTheVoiceChannel()
