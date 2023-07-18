@@ -6,7 +6,7 @@ import { IMessage } from "../../typings";
 
 @DefineCommand({
     aliases: ["dlftlwndwl"],
-    description: "노래를 일시정지합니다",
+    description: "노래를 일시정지합니다.",
     name: "일시정지",
     usage: "{prefix}일시정지"
 })
