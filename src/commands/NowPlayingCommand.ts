@@ -5,10 +5,10 @@ import { createEmbed } from "../utils/createEmbed";
 import { IMessage } from "../../typings";
 
 @DefineCommand({
-    aliases: ["np", "wlrma", "지금"],
+    aliases: ["wlrma", "지금"],
     description: "지금 틀고 있는 노래를 알려드립니다",
-    name: "nowplaying",
-    usage: "{prefix}nowplaying"
+    name: "지금",
+    usage: "{prefix}지금"
 })
 export class NowPlayingCommand extends BaseCommand {
     @isMusicPlaying()
