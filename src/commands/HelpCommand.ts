@@ -21,7 +21,7 @@ export class HelpCommand extends BaseCommand {
                     .setAuthor(`${command.meta.name}에 대해`, "https://raw.githubusercontent.com/zhycorp/disc-11/main/.github/images/question_mark.png")
                     .addFields({ name: "**이름**", value: command.meta.name, inline: true },
                         { name: "**정보**", value: command.meta.description, inline: true },
-                        { name: "**같은 명령어**", value: `${Number(command.meta.aliases?.length) > 0 ? command.meta.aliases?.map(c => `${c}`).join(", ") as string : "None"}`, inline: true },
+                        { name: "**대체 명령어**", value: `${Number(command.meta.aliases?.length) > 0 ? command.meta.aliases?.map(c => `${c}`).join(", ") as string : "None"}`, inline: true },
                         { name: "**사용법**", value: `**\`${command.meta.usage?.replace(/{prefix}/g, message.client.config.prefix) as string}\`**`, inline: true })
             ).catch(e => this.client.logger.error("HELP_CMD_ERR:", e));
         } else {
