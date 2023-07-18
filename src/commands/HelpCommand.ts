@@ -5,10 +5,10 @@ import { IMessage } from "../../typings";
 import { MessageEmbed } from "discord.js";
 
 @DefineCommand({
-    aliases: ["h", "ehdna", "도움"],
+    aliases: ["help", "ehdna", "도움"],
     description: "명령어 목록을 보여줍니다",
-    name: "help",
-    usage: "{prefix}help [명령어]"
+    name: "도움",
+    usage: "{prefix}도움 [명령어]"
 })
 export class HelpCommand extends BaseCommand {
     public execute(message: IMessage, args: string[]): void {
