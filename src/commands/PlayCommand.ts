@@ -11,10 +11,10 @@ import { decodeHTML } from "entities";
 let disconnectTimer: any;
 
 @DefineCommand({
-    aliases: ["p", "wotod", "ㅔ", "재생"],
+    aliases: ["p", "wotod", "ㅔ", "play"],
     description: "노래 재생",
-    name: "play",
-    usage: "{prefix}play <제목 또는 링크>"
+    name: "재생",
+    usage: "{prefix}재생 <제목 또는 링크>"
 })
 export class PlayCommand extends BaseCommand {
     private readonly _playlistAlreadyQueued: ISong[] = [];
