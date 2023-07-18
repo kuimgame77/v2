@@ -6,7 +6,7 @@ import { IMessage } from "../../typings";
 
 @DefineCommand({
     aliases: ["wprj"],
-    description: "목록에 있는 노래를 제거 합니다",
+    description: "목록에 있는 노래를 제거 합니다.",
     name: "제거",
     usage: "{prefix}제거 <노래 목록에 있는 숫자>"
 })
