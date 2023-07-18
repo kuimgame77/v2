@@ -7,7 +7,7 @@ import { TextChannel } from "discord.js";
 
 @DefineCommand({
     aliases: ["ahrfhr"],
-    description: "노래 목록을 보여줍니다",
+    description: "노래 목록을 보여줍니다.",
     name: "목록",
     usage: "{prefix}목록"
 })
