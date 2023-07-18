@@ -8,10 +8,9 @@ import { version } from "discord.js";
 import path from "path";
 
 @DefineCommand({
-    aliases: ["botinfo", "info", "stats"],
-    description: "봇에 대한 정보를 알려드립니다",
-    name: "about",
-    usage: "{prefix}about"
+    description: "봇에 대한 정보를 불러옵니다.",
+    name: "정보",
+    usage: "{prefix}정보"
 })
 export class AboutCommand extends BaseCommand {
     public async execute(message: IMessage): Promise<void> {
