@@ -4,10 +4,10 @@ import { IMessage } from "../../typings";
 import { MessageEmbed } from "discord.js";
 
 @DefineCommand({
-    aliases: ["pong", "pang", "pung", "peng", "pingpong"],
-    description: "Show the current ping of the bot",
-    name: "ping",
-    usage: "{prefix}ping"
+    aliases: ["ping"],
+    description: "현재 봇에 핑을 확인합니다",
+    name: "핑",
+    usage: "{prefix}핑"
 })
 export class PingCommand extends BaseCommand {
     public execute(message: IMessage): IMessage {
@@ -15,14 +15,14 @@ export class PingCommand extends BaseCommand {
             const latency = msg.createdTimestamp - message.createdTimestamp;
             const wsLatency = this.client.ws.ping.toFixed(0);
             const embed = new MessageEmbed()
-                .setAuthor("🏓 PONG", message.client.user?.displayAvatarURL())
+                .setAuthor("🏓 퐁!", message.client.user?.displayAvatarURL())
                 .setColor(this.searchHex(wsLatency))
                 .addFields({
                     name: "📶 **|** API",
                     value: `**\`${latency}\`** ms`,
                     inline: true
                 }, {
-                    name: "🌐 **|** WebSocket",
+                    name: "🌐 **|** 웹서켓",
                     value: `**\`${wsLatency}\`** ms`,
                     inline: true
                 })
