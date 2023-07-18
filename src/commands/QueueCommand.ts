@@ -6,10 +6,10 @@ import { IMessage } from "../../typings";
 import { TextChannel } from "discord.js";
 
 @DefineCommand({
-    aliases: ["q", "ahrfhr", "목록"],
+    aliases: ["ahrfhr"],
     description: "노래 목록을 보여줍니다",
-    name: "queue",
-    usage: "{prefix}queue"
+    name: "목록",
+    usage: "{prefix}목록"
 })
 export class QueueCommand extends BaseCommand {
     @isMusicPlaying()
