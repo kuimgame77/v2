@@ -6,10 +6,10 @@ import { IMessage } from "../../typings";
 
 @DefineCommand({
     aliases: ["cheo", "초대"],
-    description: "초대 링크 보내기",
+    description: "초대 링크를 보냅니다.",
     disable: disableInviteCmd,
-    name: "invite",
-    usage: "{prefix}invite"
+    name: "초대",
+    usage: "{prefix}초대"
 })
 export class InviteCommand extends BaseCommand {
     public async execute(message: IMessage): Promise<void> {
